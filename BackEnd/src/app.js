@@ -1,5 +1,5 @@
-const express = require('express');
-const aiRoutes=require('./routes/ai.routes')
+import express from 'express';
+import aiRoutes from './routes/ai.routes.js'
 const app=express();
 
 app.get('/',(req,res)=>{
@@ -10,4 +10,4 @@ app.get('/',(req,res)=>{
 app.use('/ai',aiRoutes);
 
 
-module.exports=app;
+export default app;

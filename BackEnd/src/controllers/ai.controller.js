@@ -1,11 +1,21 @@
-const aiService=require("../services/ai.service")
+import { generateAIResponse } from "../services/ai.service.js";
 
-module.exports.getResponse=async (req,res)=>{
-    const prompt=req.query.prompt;
-    if(!prompt){
-        res.status(400).send("Prompt is not recognized");
+const aiController = {
+  getResponse: async (req, res) => {
+    const prompt = req.query.prompt;
+    if (!prompt) {
+      return res.status(400).send("Prompt is not recognized");
     }
-    const response=await aiService(prompt);
 
-    res.send(response);
-}
+    try {
+      const response = await generateAIResponse(prompt);
+      console.log(response)
+      res.send(response);
+    } catch (err) {
+      console.error("AI Error:", err);
+      res.status(500).send("Error generating response");
+    }
+  }
+};
+
+export default aiController;

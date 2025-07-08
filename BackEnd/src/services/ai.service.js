@@ -1,19 +1,38 @@
-require('dotenv').config();
-const { GoogleGenerativeAI } = require('@google/generative-ai'); // Corrected import
-console.log('GEMINI_API_KEY:', process.env.GEMINI_API_KEY);
-const ai = new GoogleGenerativeAI({
+// src/services/ai.service.js
+import { GoogleGenAI } from "@google/genai";
+import dotenv from 'dotenv';
+dotenv.config();
+
+const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
-async function main() {
-  // Ensure 'gemini-1.5-flash' is a valid and available model for your API key
-  const model = ai.getGenerativeModel({ model: 'gemini-2.5-pro' });
+async function generateAIResponse(prompt) {
+  try {
+    const result = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: prompt,
+    });
 
-  const result = await model.generateContent('Explain how AI works in a few words');
-  const response = await result.response;
-  console.log(response.text());
+    console.log(result); // Logs the full response so you can see the structure
+
+    // Check if candidates exist and extract content
+    if (result && result.candidates && result.candidates.length > 0) {
+      const content = result.candidates[0].content; // Accessing the first candidate's content
+      if (content) {
+        return content; // Return the content
+      } else {
+        throw new Error("Content not found in the response");
+      }
+    } else {
+      throw new Error("Invalid response structure: No candidates found");
+    }
+  } catch (error) {
+    console.error("AI Error:", error.message);
+    throw error;
+  }
 }
 
-main().catch(console.error);
 
-module.exports = main;
+
+export { generateAIResponse };
