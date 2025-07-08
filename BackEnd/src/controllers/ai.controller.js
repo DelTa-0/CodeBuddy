@@ -1,15 +1,15 @@
 import { generateAIResponse } from "../services/ai.service.js";
 
 const aiController = {
-  getResponse: async (req, res) => {
-    const prompt = req.query.prompt;
-    if (!prompt) {
+  getReview: async (req, res) => {
+    const code = req.body.code;
+    if (!code) {
       return res.status(400).send("Prompt is not recognized");
     }
 
     try {
-      const response = await generateAIResponse(prompt);
-      console.log(response)
+      const response = await generateAIResponse(code);
+      
       res.send(response);
     } catch (err) {
       console.error("AI Error:", err);
