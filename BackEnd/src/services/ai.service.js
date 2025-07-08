@@ -24,12 +24,10 @@ async function generateAIResponse(prompt) {
     });
 
     
-
-    // Check if candidates exist and extract content
     if (result && result.candidates && result.candidates.length > 0) {
-      const content = result.candidates[0].content; // Accessing the first candidate's content
+      const content = result.candidates[0].content; 
       if (content) {
-        return content; // Return the content
+        return content; 
       } else {
         throw new Error("Content not found in the response");
       }
