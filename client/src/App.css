@@ -1,3 +1,4 @@
+/* Reset and base styles */
 * {
   margin: 0;
   padding: 0;
@@ -7,75 +8,98 @@
 html, body, #root {
   height: 100%;
   width: 100%;
+  font-family: 'Fira Code', monospace;
+  background-color: #1e1e1e;
+  color: #ffffff;
 }
 
+/* Layout */
 main {
+  display: flex;
   height: 100%;
   width: 100%;
-  padding: 2.5rem;
-  display: flex;
+  padding: 2rem;
   gap: 1rem;
 }
 
+/* Left and Right panels */
 .left, .right {
+  flex: 1;
   height: 100%;
-  flex-basis: 50%;
   border-radius: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
+/* Left: Code Editor */
 .left {
-  background-color: black;
+  background-color: #121212;
+  padding: 1rem;
   position: relative;
-  color: white;
-  padding: 1rem;
-}
-
-.right {
-  background-color: rgb(148, 144, 144);
-  padding: 1rem;
+  border: 1px solid #333;
 }
 
 .left .code {
-  height: 100%;
-  width: 100%;
+  flex: 1;
+  background-color: #1f1f1f;
   border-radius: 0.7rem;
-  background-color: rgb(62, 62, 61);
-  margin: 0;
   overflow: auto;
+  padding: 1rem;
+  border: 1px solid #444;
 }
 
-.code pre {
-  margin: 0;
-  background: transparent;
-  border-radius: 0.7rem;
-  padding: 0;
-  height: auto;
-  overflow: auto;
+/* Right: AI Response */
+.right {
+  background-color: #262626;
+  color: #e0e0e0;
+  padding: 1rem 2rem;
+  border: 1px solid #444;
+  font-size: 1rem;
+  line-height: 1.6;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
 }
 
-.code pre code {
+/* Make markdown content readable */
+.right h2, .right h3 {
+  color: #58a6ff;
+  margin-top: 1rem;
+}
+
+.right code, .right pre {
+  background-color: #1a1a1a;
+  color: #dcdcdc;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-size: 0.95rem;
   display: block;
-  margin: 0;
-  font-family: 'Fira Code', monospace;
-  white-space: pre-wrap; /* or pre for horizontal scrolling */
-  word-break: break-word;
-  background: transparent;
-  height: auto;
-  width: 100%;
+  overflow-x: auto;
 }
 
+.right ul {
+  padding-left: 1.2rem;
+}
 
-/* Review button inside the left section */
+.right li {
+  margin-bottom: 0.5rem;
+}
+
+/* Review Button */
 .left .review {
   position: absolute;
   bottom: 1rem;
   right: 1rem;
-  background-color: rgb(99, 99, 248);
+  background-color: #4c8bf5;
   color: white;
   padding: 0.75rem 1.5rem;
-  border-radius: 0.7rem;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: 500;
-  user-select: none;
-  margin: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.left .review:hover {
+  background-color: #3b72d3;
 }
